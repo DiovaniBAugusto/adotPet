@@ -1,10 +1,7 @@
-import express from 'express'
-import userRoutes from './resource/userResources'
+import app from './app'
 
-const app = express();
+const port = process.env.PORT || 5000
 
-app.use(userRoutes);
-
-app.listen(8080,()=>{
-    console.log("server ok");
+app.listen(port, () => {
+    console.log(`Server running at port ${port}`)
 })
