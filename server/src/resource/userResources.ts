@@ -1,9 +1,11 @@
 import { Router } from "express";
-import {teste} from '../service/userServices'
+// import {teste} from '../service/userServices'
 
 
-const router = Router();
+const userRouter = Router();
 
-router.get("/user", teste)
+userRouter.get("/user", (req, res) => {
+    res.json({ funcionou: true })
+})
 
-export default router;
+export { userRouter };
