@@ -9,7 +9,73 @@ datasource db {
 
 model user{
   id String @id @default(uuid())
-  name     String
+  username String
   email    String
   password String
+  userRole String
+  person person[]
+  ong ong[]
+  pet pet[]
+}
+
+model ong{
+  id String @id @default(uuid())
+  onName String
+  userId String
+  pet pet[]
+  checklistForm checklistForm[]
+
+  relation user @relation(fields: [userId], references: [id])
+}
+
+model checklistForm{
+  id String @id @default(uuid())
+  type String
+  animal String
+  ongId String
+  checklistItem checklistItemForm[]
+
+  relationOng ong @relation(fields: [ongId], references: [id])
+}
+
+model checklistItemForm{
+  id String @id @default(uuid())
+  required Boolean 
+  title String
+  type String
+  checklistId String
+
+  relationChecklist checklistForm @relation(fields: [checklistId], references: [id])
+ 
+}
+
+model pet{
+  id String @id @default(uuid())
+  animalType String
+  weight Float
+  age Int
+  userId String
+  ongId String
+  status String
+
+  relationUser user @relation(fields: [userId], references: [id])
+  relationOng ong @relation(fields: [ongId], references: [id])
+}
+
+model person{
+  id String @id @default(uuid())
+  name String
+  last_name String
+  age Int
+  cpf Int
+  fone Int?
+  logradouro String
+  number Int
+  cep Int
+  city String
+  state String
+  country String
+  userId String
+
+  relation user @relation(fields: [userId], references: [id])
 }

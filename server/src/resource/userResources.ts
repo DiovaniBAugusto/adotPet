@@ -1,11 +1,10 @@
 import { Router } from "express";
-// import {teste} from '../service/userServices'
-
+import { CreateUser } from "../controllers/User/CreateUser";
+import { AuthUser } from "../controllers/User/AuthUser";
 
 const userRouter = Router();
 
-userRouter.get("/user", (req, res) => {
-    res.json({ funcionou: true })
-})
+userRouter.post("/user", new CreateUser().handle)
+userRouter.get("/user", new AuthUser().handle)
 
 export { userRouter };
