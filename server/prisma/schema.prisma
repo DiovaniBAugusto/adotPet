@@ -16,6 +16,7 @@ model user{
   person person[]
   ong ong[]
   pet pet[]
+  requests request[]
 }
 
 model ong{
@@ -24,6 +25,7 @@ model ong{
   userId String
   pet pet[]
   checklistForm checklistForm[]
+  requests request[]
 
   relation user @relation(fields: [userId], references: [id])
 }
@@ -57,6 +59,7 @@ model pet{
   userId String
   ongId String
   status String
+  request request[]
 
   relationUser user @relation(fields: [userId], references: [id])
   relationOng ong @relation(fields: [ongId], references: [id])
@@ -78,4 +81,41 @@ model person{
   userId String
 
   relation user @relation(fields: [userId], references: [id])
+}
+
+model request{
+  id      String @id @default(uuid())
+  type    String
+  comment String
+  status  String
+  petId   String
+  userId  String
+  ongId   String
+  checklist checklist[]
+
+  relationPet pet @relation(fields: [petId], references: [id])
+  relationUser user @relation(fields: [userId], references: [id])
+  relationOng ong @relation(fields: [ongId], references: [id])
+}
+
+model checklist{
+  id      String @id @default(uuid())
+  status String
+  type String
+  animalType String
+  requestId String
+  itens checklistItem[]
+
+  relationReq request @relation(fields: [requestId], references: [id])
+}
+
+model checklistItem{
+  id      String @id @default(uuid())
+  required Boolean
+  title String
+  type String
+  status Boolean
+  checklistId String
+
+  relationCheck checklist @relation(fields: [checklistId], references: [id])
 }
