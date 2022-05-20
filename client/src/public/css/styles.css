@@ -1,0 +1,63 @@
+.form-input{
+    height: 48px;
+    border: none;
+    border-bottom: 1px solid #27272a;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0px;
+    background: none;
+    font-size: medium;
+}
+
+.form-input:focus{
+    box-shadow: 0 0 0 0;
+    outline: 0;
+}
+
+.form-card{
+    display: flex;
+    flex-direction: column;
+    
+    height: auto;
+    font-family:Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    width: 450px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-right: 4rem;
+    padding-left: 4rem;
+    border-radius: 5px;
+}
+
+.form-style{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-btn{
+    background-color: #6bbd75;
+    font-size: large;
+    font-weight: 500;
+    width: 80%;
+    
+}
+
+.form-btn:hover{
+    background-color: #60bd6b;
+    transition: all 0.2s linear;
+}
+
+.form-btn:focus{
+    background-color: #60bd6b;
+}
+
+.link-auth{
+    font-size: small;
+    text-decoration: none;
+}
+
+.link-auth:hover{
+    transition: all 0.4s linear;
+}

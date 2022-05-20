@@ -1,19 +1,20 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default function Navbar(){
     return(
         <nav className="navbar navbar-expand navbar-light bg-light">
             
-            <a href="/">
+            <Link to="/">
                 Home
-            </a>
+            </Link>
             
-            <a href="/login">
+            <Link to="/login">
                 Login
-            </a>
-            <a href="register">
+            </Link>
+            <Link to="register">
                 Register
-            </a>
+            </Link>
         </nav>
     )
 }

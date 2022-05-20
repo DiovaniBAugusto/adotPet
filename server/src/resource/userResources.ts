@@ -5,6 +5,6 @@ import { AuthUser } from "../controllers/User/AuthUser";
 const userRouter = Router();
 
 userRouter.post("/user", new CreateUser().handle)
-userRouter.get("/user", new AuthUser().handle)
+userRouter.post("/auth", new AuthUser().handle)
 
 export { userRouter };
