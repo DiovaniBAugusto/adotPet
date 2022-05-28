@@ -19,7 +19,7 @@ class App {
     private middlewares(): void {
         this.express.use(express.json())
         this.express.use(cors())
-
+        
         const sessionSecret = process.env.SECRET || "Asd219A9v7b@0mngo2pwl&812a2azx3jkh5a7s8kl";
         this.express.use(sessions({
             name: 'id',

@@ -6,8 +6,6 @@ const userRouter = Router();
 
 userRouter.post("/user", new CreateUser().handle)
 userRouter.post("/auth", new AuthUser().handle)
-userRouter.get("/logout", (req ,res)=>{
-    req.session.destroy;
-})
+
 
 export { userRouter };
