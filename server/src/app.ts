@@ -2,9 +2,12 @@ import express from 'express'
 import cors from 'cors'
 import { PrismaClient } from '@prisma/client'
 import { userRouter } from './resource'
+import sessions from 'express-session'
+
 
 class App {
     public express: express.Application
+   
 
     constructor() {
         this.express = express()
@@ -16,6 +19,18 @@ class App {
     private middlewares(): void {
         this.express.use(express.json())
         this.express.use(cors())
+
+        const sessionSecret = process.env.SECRET || "Asd219A9v7b@0mngo2pwl&812a2azx3jkh5a7s8kl";
+        this.express.use(sessions({
+            name: 'id',
+            secret: sessionSecret,
+            saveUninitialized: true,
+            resave: false,
+            cookie:{
+                httpOnly: true,
+                maxAge: 1000*60*60*24*5 //5 dias
+            }
+        }))
     }
 
     private database(): void {

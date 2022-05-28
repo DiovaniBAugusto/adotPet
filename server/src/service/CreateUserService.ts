@@ -7,10 +7,10 @@ const prisma = new PrismaClient();
 
 class CreateUserService implements CreateUserServiceProps{
     async handle(user: IUser): Promise<IUser> {
-        if (!user.username || !user.password) {
+        if (!user.username || !user.password || !user.email) {
             throw new Error('invalid data provided')
         }
-        const userRole = 'usuario'
+        
         const createdUser: IUser = await prisma.user.create({
             data: {
                 username: user.username,
