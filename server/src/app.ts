@@ -22,7 +22,6 @@ class App {
     this.express.use(
       cors({
         origin: "http://localhost:3000",
-        credentials: true,
       })
     );
 
@@ -37,8 +36,6 @@ class App {
         cookie: {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 5, //5 dias
-          secure: "auto",
-          sameSite: "none",
         },
       })
     );

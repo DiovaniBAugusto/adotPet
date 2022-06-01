@@ -4,8 +4,8 @@ import { API } from "../lib/api";
 import logoPet from '../public/img/logopet.png'
 
 export default function Login(){
-    const [email, setEmail] = useState<string>('diov@gmail.com')
-    const [password, setPassword] = useState<string>('oraclo123')
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
     const nav = useNavigate();
 
@@ -15,7 +15,7 @@ export default function Login(){
             const response = await API.post('/auth',{
                 email,
                 password
-            }, { withCredentials: true})
+            })
             const {data} = response;
             window.localStorage.setItem("user", JSON.stringify(data));
             nav("/");

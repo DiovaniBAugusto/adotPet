@@ -6,5 +6,8 @@ const userRouter = Router();
 
 userRouter.post("/user", new CreateUser().handle);
 userRouter.post("/auth", new AuthUser().handle);
+userRouter.get("/ping", (req, res) => {
+  res.json({ response: "pong" });
+});
 
 export { userRouter };
