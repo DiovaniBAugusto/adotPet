@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
-import { userRouter } from "./resource";
+import { authRouter } from "./resource";
 import sessions from "express-session";
 import cookieParser from "cookie-parser";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
@@ -56,7 +56,7 @@ class App {
   }
 
   private routes(): void {
-    this.express.use(userRouter);
+    this.express.use(authRouter);
 
     this.express.use("*", (req, res, next) => {
       res.status(404).json({ error: "Endpoint not found" });

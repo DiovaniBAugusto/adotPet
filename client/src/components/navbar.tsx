@@ -17,12 +17,9 @@ export default function Navbar(){
         }else if(!perfilVisibility && content){
             content.style.display = "block"
             setPerfilVisibility(!perfilVisibility);
-        }
-            
-
-        
-            
+        }   
     }
+    
     return(
         <>
             <nav className="navbar">
