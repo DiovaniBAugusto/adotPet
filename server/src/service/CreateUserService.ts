@@ -1,8 +1,6 @@
-import { PrismaClient } from "@prisma/client";
-import { UserServiceProps } from "./interfaces/UserServiceInterface";
+import { prisma } from "./lib/dbClient";
+import { UserServiceProps } from "./interfaces/UserService-Interface";
 import { IUser } from "./interfaces/UserInterface";
-
-const prisma = new PrismaClient();
 
 class CreateUserService implements UserServiceProps {
   async handle(user: IUser): Promise<IUser> {

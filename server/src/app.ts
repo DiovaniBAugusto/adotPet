@@ -3,9 +3,6 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import { authRouter } from "./resource";
 import sessions from "express-session";
-import cookieParser from "cookie-parser";
-import { NodeNextRequest } from "next/dist/server/base-http/node";
-
 class App {
   public express: express.Application;
 
@@ -17,6 +14,8 @@ class App {
   }
 
   private middlewares(): void {
+    const sessionSecret =
+      process.env.SECRET || "Asd219A9v7b@0mngo2pwl&812a2azx3jkh5a7s8kl";
     this.express.use(express.json());
 
     this.express.use(
@@ -24,15 +23,22 @@ class App {
         origin: "http://localhost:3000",
       })
     );
-
-    const sessionSecret =
-      process.env.SECRET || "Asd219A9v7b@0mngo2pwl&812a2azx3jkh5a7s8kl";
+    const conObject = {
+      user: process.env.DB_USER,
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT,
+    };
     this.express.use(
       sessions({
         name: "sId",
         secret: sessionSecret,
         saveUninitialized: true,
         resave: false,
+        store: new (require("connect-pg-simple")(sessions))({
+          conObject,
+        }),
         cookie: {
           httpOnly: true,
           maxAge: 1000 * 60 * 60 * 24 * 5, //5 dias
