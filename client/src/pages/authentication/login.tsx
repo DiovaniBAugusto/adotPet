@@ -1,7 +1,8 @@
 import React, {useState, FormEvent} from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { API } from "../lib/api";
-import logoPet from '../public/img/logopet.png'
+import AuthWrapper from "../../components/authWrapper";
+import { API } from "../../lib/api";
+import logoPet from '../../public/img/logopet.png'
 
 export default function Login(){
     const [email, setEmail] = useState<string>('')
@@ -25,8 +26,8 @@ export default function Login(){
     }
 
     return(
-        <>
-            <div className="container col-md-4 offset-md-4 pt-5">
+        <AuthWrapper >
+            <div className="container col-md-4 offset-md-4 pt-5" key={1}>
                 <div className="form-card">
                     <div className="form-card-header">
                         <img src={logoPet} className = "form-logo " />
@@ -54,6 +55,6 @@ export default function Login(){
                     </p>
                 </div>
             </div>
-        </>
+        </AuthWrapper>
     )
 }

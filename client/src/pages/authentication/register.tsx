@@ -1,6 +1,7 @@
 import React, {FormEvent, useState} from "react"
 import { useNavigate, Link } from 'react-router-dom'
-import { API } from "../lib/api";
+import { API } from "../../lib/api";
+import AuthWrapper from "../../components/authWrapper";
 
 
 export default function Register(){
@@ -33,8 +34,8 @@ export default function Register(){
     }
 
     return(
-        <>
-            <div className="container col-md-4 offset-md-4 pt-5">
+        <AuthWrapper>
+            <div className="container col-md-4 offset-md-4 pt-5" key={1}>
                 <div className="form-card">
                 <h3 className="text-center">Criar nova conta</h3>
                 <p className="text-center pb-3 txt-s">Preencha os dados a baixo para se cadastrar em nosso site!</p>
@@ -62,6 +63,6 @@ export default function Register(){
                 </p>
                 </div>
             </div>
-        </>
+        </AuthWrapper>
     )
 }
