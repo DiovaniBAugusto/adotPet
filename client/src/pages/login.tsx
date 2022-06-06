@@ -12,7 +12,7 @@ export default function Login(){
     async function handleSubmit(e: FormEvent){
         e.preventDefault();
         try{
-            const response = await API.post('/auth',{
+            const response = await API.post('/login',{
                 email,
                 password
             })

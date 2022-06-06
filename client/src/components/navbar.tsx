@@ -1,12 +1,14 @@
+import axios from "axios";
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import { API } from "../lib/api";
 import logoPetImg from "../public/img/logoPet.png"
 import lupaImg from "../public/img/lupa.png"
 import userIcon from '../public/img/userIcon.png'
 
 export default function Navbar(){
     const [perfilVisibility, setPerfilVisibility] = useState(false);
-
+    const nav = useNavigate();
 
     function handlePerfil(){
         let content = document.getElementById("perfilContent");
@@ -17,12 +19,15 @@ export default function Navbar(){
         }else if(!perfilVisibility && content){
             content.style.display = "block"
             setPerfilVisibility(!perfilVisibility);
-        }
-            
-
-        
-            
+        }   
     }
+    
+    function handleLogout(){
+        API.get("/logout").then(res=>{
+            nav("/")
+        })
+    }
+
     return(
         <>
             <nav className="navbar">
@@ -50,6 +55,7 @@ export default function Navbar(){
 
             <div className="perfil-content" id="perfilContent">
                 Para acessar seu Perfil, faça o <Link to="/login" onClick={handlePerfil} className="nav-link"> Login</Link>
+                <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
             </div>
         </>
     )

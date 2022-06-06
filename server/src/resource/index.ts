@@ -1,1 +1,1 @@
-export * from './userResources'
+export * from "./authResources";
