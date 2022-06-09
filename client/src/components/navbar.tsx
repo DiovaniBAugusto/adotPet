@@ -1,18 +1,28 @@
-import axios from "axios";
-import React, {useState} from "react";
+
+import {useState, useContext, useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import { API } from "../lib/api";
 import logoPetImg from "../public/img/logoPet.png"
 import lupaImg from "../public/img/lupa.png"
 import userIcon from '../public/img/userIcon.png'
 
+
+
 export default function Navbar(){
     const [perfilVisibility, setPerfilVisibility] = useState(false);
+    
+
     const nav = useNavigate();
+    const {state, dispatch} = useContext(UserContext);
+
+    const {user} = state;
+
+
 
     function handlePerfil(){
         let content = document.getElementById("perfilContent");
-
+        console.log(user)
         if(perfilVisibility && content){
             content.style.display = "none"
             setPerfilVisibility(!perfilVisibility);
@@ -24,9 +34,18 @@ export default function Navbar(){
     
     function handleLogout(){
         API.get("/logout").then(res=>{
+            dispatch({
+                type:"logout",
+                payload: null
+            })
+            window.localStorage.removeItem("user");
             nav("/")
         })
     }
+
+    
+
+   
 
     return(
         <>
@@ -54,8 +73,19 @@ export default function Navbar(){
             </nav>
 
             <div className="perfil-content" id="perfilContent">
-                Para acessar seu Perfil, faça o <Link to="/login" onClick={handlePerfil} className="nav-link"> Login</Link>
-                <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
+                {!user ? 
+                    <>
+                        Para acessar seu Perfil, faça o <Link to="/login" onClick={handlePerfil} className="nav-link"> Login</Link>
+                    </>
+                : 
+                    <>
+                        Olá {user.username}!
+                        tudo bom?
+                        <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
+                    </>
+                }
+                
+                
             </div>
         </>
     )

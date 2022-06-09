@@ -1,7 +1,9 @@
-import React, {useState, FormEvent} from "react"
+import {useState, FormEvent, useContext} from "react"
 import { useNavigate, Link } from "react-router-dom"
-import { API } from "../lib/api";
-import logoPet from '../public/img/logopet.png'
+import AuthWrapper from "../../components/authWrapper";
+import { API } from "../../lib/api";
+import logoPet from '../../public/img/logopet.png'
+import { UserContext} from '../../context/UserContext'
 
 export default function Login(){
     const [email, setEmail] = useState<string>('')
@@ -9,24 +11,30 @@ export default function Login(){
     const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false)
     const nav = useNavigate();
 
+    const {state: {user}, dispatch} = useContext(UserContext);
+
     async function handleSubmit(e: FormEvent){
         e.preventDefault();
-        try{
-            const response = await API.post('/login',{
+            await API.post('/login',{
                 email,
                 password
+            }).then(resp =>{
+                const { data } = resp;
+                window.localStorage.setItem("user",JSON.stringify(data));
+                dispatch({
+                    type: 'login',
+                    payload: data
+                })
+                console.log(resp)
+                nav("/")
+            }).catch(err=>{
+                console.log(err);
             })
-            const {data} = response;
-            window.localStorage.setItem("user", JSON.stringify(data));
-            nav("/");
-        }catch(err){
-            console.log(err)
-        }
     }
 
     return(
-        <>
-            <div className="container col-md-4 offset-md-4 pt-5">
+        <AuthWrapper >
+            <div className="container col-md-4 offset-md-4 pt-5" key={1}>
                 <div className="form-card">
                     <div className="form-card-header">
                         <img src={logoPet} className = "form-logo " />
@@ -54,6 +62,6 @@ export default function Login(){
                     </p>
                 </div>
             </div>
-        </>
+        </AuthWrapper>
     )
 }

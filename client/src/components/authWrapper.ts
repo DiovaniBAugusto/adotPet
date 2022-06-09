@@ -12,7 +12,11 @@ const authWrapper = ({ children }: { children: JSX.Element }) => {
   const fetchUser = async () => {
     try {
       const { data } = await API.get("/auth");
-      if (data.res) {
+
+      if (data.res && !children.key) {
+        setUserAuthenticated(true);
+        return;
+      } else if (!data.res && children.key) {
         setUserAuthenticated(true);
         return;
       }
